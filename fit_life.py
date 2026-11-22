@@ -1,42 +1,48 @@
 import time
 
+WATER_PER_KG = 30                      # Константа - норма воды в мл на кг
+ML_IN_L = 1000                         # Константа - количество мл в литре
+
 # Приветствие с задержкой
 print("\n" + 'Доброго времени суток, здоровяк!')
 print("-" * 40)                        # Просто красивое оформление
-time.sleep(0.5)                        # Задержка 0.5 сек
+# Задержка для визуального оформления и демонстрации усвоения материала
+# Задержка была 2, но pytest не проходил из за своей задержки, поэтому 0.5 сек
+time.sleep(0.5)
 
 
 # Имя и возраст
 user_name = input("Как тебя зовут?")
 name = user_name.title()
 
-user_age = input("Какой твой возраст?")
-try:                                   # Проверяю ответ на тип данных
-    int_user_age = int(user_age)
-except ValueError:                     # Если не int, тогда сообщение об ошибке
-    print("Ошибка! Введите возраст цифрами. Пример: 25")
-int_user_age = int(user_age)           # Возраст str в int
+
+while True:
+    user_age = input("Какой твой возраст?")
+
+    try:                                       # Пробую преобразовать str в int
+        int_user_age = int(user_age)           # Проверяем на int + str в int
+        break                                  # Стоп цикл, если все ок
+    except ValueError:                         # Если не int, тогда ошибка
+        print("Ошибка! Введите возраст цифрами. Пример: 25")
 
 
 # Вес и  рост
 user_weight = input("Укажите ваш вес(в кг): ")
-float_user_weight = float(user_weight)  # Вес в float
+kilo_weight = float(user_weight)  # Вес в float
 
 user_height = input("Укажите ваш рост(формат: 1.75): ")
-float_user_height = float(user_height)
+metre_height = float(user_height)
 
 
 # Расчеты:
 
 # 1. ИМТ
-bmi = float_user_weight / (float_user_height ** 2)
+bmi = kilo_weight / (metre_height ** 2)
 round_bmi = round(bmi, 1)              # Округляю ИМТ
 
 
 # 2. Норма воды в миллилитрах
-WATER_PER_KG = 30                      # Константа - норма воды в мл на кг
-ML_IN_L = 1000                         # Константа - количество мл в литре
-water_ml = float_user_weight * WATER_PER_KG
+water_ml = kilo_weight * WATER_PER_KG
 round_water_ml = round(water_ml, 1)    # Округляю до одного знака после запятой
 
 
